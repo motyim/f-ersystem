@@ -144,7 +144,7 @@ public class Incident implements Serializable {
 
     @Override
     public String toString() {
-        return "delete.Incident[ id=" + id + " ]";
+        return "delete.IncidentRepo[ id=" + id + " ]";
     }
 
 }
