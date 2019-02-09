@@ -18,7 +18,7 @@ USE `ER_System` ;
 -- Table `ER_System`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ER_System`.`user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(40) NOT NULL,
   `phoneNumber` VARCHAR(9) NOT NULL,
   PRIMARY KEY (`id`))
@@ -29,7 +29,7 @@ ENGINE = InnoDB;
 -- Table `ER_System`.`employee`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ER_System`.`employee` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `role` VARCHAR(45) NULL,
   `name` VARCHAR(45) NULL,
   `region` VARCHAR(45) NULL,
@@ -42,7 +42,7 @@ ENGINE = InnoDB;
 -- Table `ER_System`.`incident`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ER_System`.`incident` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NULL,
   `date` DATETIME NULL,
   `region` VARCHAR(45) NULL,
