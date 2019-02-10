@@ -1,0 +1,14 @@
+.background{
+    height: 100%;
+    background-color: green !important;
+}
+
+.title{
+    font-size: 80px;
+    margin-left: 20%;
+    color: white;
+}
+.form-home{
+    margin-top: 50px;
+    text-align: right;
+}

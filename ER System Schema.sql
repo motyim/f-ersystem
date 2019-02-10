@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `ER_System`.`employee` (
   `name` VARCHAR(45) NULL,
   `region` VARCHAR(45) NULL,
   `phonenumber` VARCHAR(11) NOT NULL,
+  `password` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

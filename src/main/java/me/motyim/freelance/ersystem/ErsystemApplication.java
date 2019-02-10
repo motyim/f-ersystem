@@ -44,6 +44,7 @@ public class ErsystemApplication {
             employee.setName("admin");
             employee.setRole("admin");
             employee.setPhonenumber("0112455");
+            employee.setPassword("123");
             employeeRepo.save(employee);
 
 		};

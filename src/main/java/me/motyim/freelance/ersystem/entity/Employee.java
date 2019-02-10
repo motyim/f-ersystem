@@ -1,14 +1,24 @@
 package me.motyim.freelance.ersystem.entity;
 
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author MotYim <mohamed.motyim@gmail.com>
- * @since Feb 9, 2019 
+ * @since Feb 10, 2019 
  */
 @Entity
 @Table(name = "employee")
@@ -19,8 +29,8 @@ public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Column(name = "role")
@@ -32,6 +42,8 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "phonenumber")
     private String phonenumber;
+    @Column(name = "password")
+    private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
     private Collection<Incident> incidentCollection;
 
@@ -85,6 +97,14 @@ public class Employee implements Serializable {
 
     public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @XmlTransient
