@@ -12,3 +12,9 @@
     margin-top: 50px;
     text-align: right;
 }
+
+.btn-main {
+    line-height: 6.5 !important;
+    margin: 25px;
+    width: 250px;
+}
