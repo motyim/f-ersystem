@@ -8,7 +8,7 @@
 		<version>2.1.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>me.motyim.freelance</groupId>
+	<groupId>me</groupId>
 	<artifactId>ersystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ersystem</name>
