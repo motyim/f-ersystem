@@ -37,4 +37,10 @@ public class UserService {
         repo.save(user);
         return modelMapper.map(user,UserDto.class);
     }
+
+    public UserDto addUser(UserDto userDto) {
+        User user = modelMapper.map(userDto, User.class);
+        User savedUser = repo.save(user);
+        return modelMapper.map(savedUser,UserDto.class);
+    }
 }

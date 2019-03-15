@@ -24,6 +24,12 @@ public class UserApi {
         return ResponseEntity.ok(dto);
     }
 
+    @PostMapping("singup")
+    public ResponseEntity<UserDto> signup(@RequestBody UserDto userDto){
+        UserDto savedUser = service.addUser(userDto);
+        return ResponseEntity.ok(savedUser);
+    }
+
     @PutMapping
     public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserDto dto){
         UserDto user = service.updateUser(dto);

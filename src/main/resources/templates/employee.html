@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: head"></div>
+<body class="background">
+<div class="container-fluid">
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="row">
+        <div class="offset-md-2 col-md-4">
+            <form class="form-home" th:action="@{/employee}" method="post">
+                بحث عن موظف
+                <div class="form-group">
+                    <label for="id">الرقم الوظيفي</label>
+                    <input type="text" class="form-control" name="id" id="id" >
+                </div>
+                <button type="submit" class="btn btn-primary">بحث</button>
+            </form>
+
+            <table class="table">
+                <th>
+                    <tr>
+                        <td>الرقم الوظيفي</td>
+                        <td>الدور</td>
+                        <td>الاسم</td>
+                        <td>المنطقه</td>
+                        <td>رقم الهاتف</td>
+                    </tr>
+                </th>
+                <th:block th:each="user : ${users}">
+                    <tr>
+                        <td th:text="${user.id}"/>
+                        <td th:text="${user.role}"/>
+                        <td th:text="${user.name}"/>
+                        <td th:text="${user.region}"/>
+                        <td th:text="${user.phonenumber}"/>
+                    </tr>
+                </th:block>
+            </table>
+
+            <a type="button" class="btn btn-primary" href="/home">رجوع</a>
+            <a type="button" class="btn btn-primary" href="/employee/add">اضافه موظف</a>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: script"></div>
+</body>
+</html>
