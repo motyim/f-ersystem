@@ -7,11 +7,11 @@ import me.ersystem.entity.User;
 import me.ersystem.repo.EmployeeRepo;
 import me.ersystem.repo.IncidentRepo;
 import me.ersystem.repo.UserRepo;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -45,51 +45,55 @@ public class IncidentService {
 
     private static String UPLOADED_FOLDER = "uploads/";
 
-    public void addIncident(IncidentDto dto, MultipartFile file) {
-
-        if (file.isEmpty()) {
-            throw new RuntimeException("image not found");
-        }
-
-        String imagePath = uploadImage(file);
+    public Integer addIncident(IncidentDto dto) {
 
         Incident incident = mapper.map(dto, Incident.class);
-        incident.setImage(imagePath);
 
         Optional<User> user = userRepo.findById(dto.getUserId());
 
-        if(!user.isPresent())
+        if (!user.isPresent())
             throw new RuntimeException("user not found");
 
         // TODO: 09-Feb-19 make it dynamic
         incident.setEmployeeId(employeeRepo.findById(1).get());
         incident.setUserId(user.get());
         incident.setDate(new Date());
-        repo.save(incident);
+        Incident incident1 = repo.save(incident);
+        return incident1.getId();
 
     }
 
-    private String uploadImage(MultipartFile file) {
+    public void uploadImage(String encodedImage, int id) {
+
         try {
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
+            Optional<Incident> incidentOptional = repo.findById(id);
+            if (!incidentOptional.isPresent())
+                throw new RuntimeException("incident not exsist");
 
-            System.out.println(   "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
-            return file.getOriginalFilename();
+
+            byte[] imageByte = Base64.decodeBase64(encodedImage);
+            String fileName = "Image-" + new Date().toString();
+            Path path = Paths.get(UPLOADED_FOLDER + fileName);
+            Files.write(path, imageByte);
+
+            Incident incident = incidentOptional.get();
+            incident.setImage(fileName);
+            repo.save(incident);
+
+            System.out.println("You successfully uploaded '");
+
         } catch (IOException e) {
             throw new RuntimeException("image can't uploded");
         }
     }
 
     @Transactional
-    public  List <IncidentResponse>  getAllIncident(int id) {
+    public List<IncidentResponse> getAllIncident(int id) {
 
         Optional<User> user = userRepo.findById(id);
 
-        if(!user.isPresent())
+        if (!user.isPresent())
             throw new RuntimeException("user not found");
 
         Stream<Incident> incident = repo.findAllByUserId(user.get());
@@ -97,12 +101,12 @@ public class IncidentService {
         List<Incident> incidents = incident.collect(Collectors.toList());
 
 //        incidents.forEach(System.out::println);
-        ArrayList <IncidentResponse> responses = new ArrayList<>();
+        ArrayList<IncidentResponse> responses = new ArrayList<>();
 
         // TODO: 09-Feb-19 make model mapper
 //        mapper.map(incidents, responses);
 
-        incidents.forEach(i->{
+        incidents.forEach(i -> {
             IncidentResponse res = new IncidentResponse();
             res.setDate(i.getDate());
             res.setId(i.getId());

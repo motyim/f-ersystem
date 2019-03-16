@@ -7,7 +7,7 @@
     <div th:replace="fragments/header :: header"></div>
 
     <div class="row">
-        <div class="offset-md-2 col-md-4">
+        <div class="offset-md-2 col-md-8">
             <form class="form-home" th:action="@{/employee}" method="post">
                 بحث عن موظف
                 <div class="form-group">
@@ -17,16 +17,17 @@
                 <button type="submit" class="btn btn-primary">بحث</button>
             </form>
 
-            <table class="table">
-                <th>
-                    <tr>
-                        <td>الرقم الوظيفي</td>
-                        <td>الدور</td>
-                        <td>الاسم</td>
-                        <td>المنطقه</td>
-                        <td>رقم الهاتف</td>
-                    </tr>
-                </th>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td>الرقم الوظيفي</td>
+                    <td>الدور</td>
+                    <td>الاسم</td>
+                    <td>المنطقه</td>
+                    <td>رقم الهاتف</td>
+                </tr>
+                </thead>
+                <tbody>
                 <th:block th:each="user : ${users}">
                     <tr>
                         <td th:text="${user.id}"/>
@@ -36,6 +37,7 @@
                         <td th:text="${user.phonenumber}"/>
                     </tr>
                 </th:block>
+                </tbody>
             </table>
 
             <a type="button" class="btn btn-primary" href="/home">رجوع</a>

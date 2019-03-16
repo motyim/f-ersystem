@@ -3,6 +3,7 @@ package me.ersystem.api;
 import me.ersystem.dto.IncidentDto;
 import me.ersystem.dto.IncidentResponse;
 import me.ersystem.service.IncidentService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +24,15 @@ public class IncidentApi {
 
 
     @PostMapping()
-    public ResponseEntity<String> addIncident(IncidentDto dto , @RequestParam ("file") MultipartFile file) {
+    public ResponseEntity<Integer> addIncident(IncidentDto dto) {
+        Integer integer = service.addIncident(dto);
+        return ResponseEntity.ok(integer);
+    }
 
-        service.addIncident(dto,file);
-
-        return ResponseEntity.ok("Incident Added");
-
+    @PostMapping
+    public ResponseEntity<String> uploadImage(@RequestParam("encodedImage") String encodedImage,@RequestParam int id){
+        service.uploadImage(encodedImage,id);
+        return ResponseEntity.ok("Uploaded");
     }
 
     @GetMapping

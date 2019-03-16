@@ -1,12 +1,14 @@
 .background{
     height: 100%;
-    background-color: green !important;
+    background-color: #75f9a1 !important;
 }
-
+.header{
+    background-color: #F8F9FA !important;
+    border-bottom: 2px solid;
+}
 .title{
     font-size: 80px;
     margin-left: 20%;
-    color: white;
 }
 .form-home{
     margin-top: 50px;
