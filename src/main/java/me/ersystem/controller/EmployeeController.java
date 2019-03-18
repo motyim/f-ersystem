@@ -50,6 +50,7 @@ public class EmployeeController {
         boolean saved = service.addEmployee(dto);
         String message = (saved) ? "تم اضافه الموظف" : "حدث خطاء الرجاء المحاوله مره اخري" ;
         model.addAttribute("message", message);
+        model.addAttribute("employee", new EmployeeDto());
         return "addEmployee";
     }
 }

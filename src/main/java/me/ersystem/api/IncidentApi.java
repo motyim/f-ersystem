@@ -29,7 +29,7 @@ public class IncidentApi {
         return ResponseEntity.ok(integer);
     }
 
-    @PostMapping
+    @PostMapping("upload")
     public ResponseEntity<String> uploadImage(@RequestParam("encodedImage") String encodedImage,@RequestParam int id){
         service.uploadImage(encodedImage,id);
         return ResponseEntity.ok("Uploaded");
