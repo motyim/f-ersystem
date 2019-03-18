@@ -3,11 +3,9 @@ package me.ersystem.api;
 import me.ersystem.dto.IncidentDto;
 import me.ersystem.dto.IncidentResponse;
 import me.ersystem.service.IncidentService;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
  * @since 09-Feb-19
  */
 @RestController
-@RequestMapping("incident")
+@RequestMapping("api/incident")
 public class IncidentApi {
 
     @Autowired
@@ -38,7 +36,7 @@ public class IncidentApi {
     @GetMapping
     public ResponseEntity<List<IncidentResponse>> getAll(int id) {
 
-        List<IncidentResponse> allIncident = service.getAllIncident(id);
+        List<IncidentResponse> allIncident = service.getAllIncidentByUserId(id);
         System.out.println(allIncident.size());
         return ResponseEntity.ok(allIncident);
 

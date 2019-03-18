@@ -42,8 +42,14 @@ public class Incident implements Serializable {
     private Date date;
     @Column(name = "region")
     private String region;
+    @Column(name = "status")
+    private String status;
     @Column(name = "location")
     private String location;
+    @Column(name = "lat")
+    private String lat;
+    @Column(name = "lng")
+    private String lng;
     @Lob
     @Column(name = "descrption")
     private String descrption;
@@ -133,6 +139,22 @@ public class Incident implements Serializable {
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
     @Override

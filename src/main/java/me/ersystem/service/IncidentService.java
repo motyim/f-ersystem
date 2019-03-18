@@ -9,15 +9,16 @@ import me.ersystem.repo.IncidentRepo;
 import me.ersystem.repo.UserRepo;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -71,7 +72,6 @@ public class IncidentService {
                 throw new RuntimeException("incident not exsist");
 
 
-
             byte[] imageByte = Base64.decodeBase64(encodedImage);
             String fileName = "Image-" + new Date().toString();
             Path path = Paths.get(UPLOADED_FOLDER + fileName);
@@ -89,7 +89,7 @@ public class IncidentService {
     }
 
     @Transactional
-    public List<IncidentResponse> getAllIncident(int id) {
+    public List<IncidentResponse> getAllIncidentByUserId(int id) {
 
         Optional<User> user = userRepo.findById(id);
 
@@ -100,22 +100,32 @@ public class IncidentService {
 
         List<Incident> incidents = incident.collect(Collectors.toList());
 
-//        incidents.forEach(System.out::println);
-        ArrayList<IncidentResponse> responses = new ArrayList<>();
+        Type listType = new TypeToken<List<IncidentResponse>>() {}.getType();
 
-        // TODO: 09-Feb-19 make model mapper
-//        mapper.map(incidents, responses);
+        List<IncidentResponse> incidentsDtos = mapper.map(incidents, listType);
 
-        incidents.forEach(i -> {
-            IncidentResponse res = new IncidentResponse();
-            res.setDate(i.getDate());
-            res.setId(i.getId());
-            res.setType(i.getType());
-            responses.add(res);
-        });
+        return incidentsDtos;
+    }
 
-//        responses.forEach(System.out::println);
-//        System.out.println(responses.size());
-        return responses;
+    public List<IncidentDto> getAllIncident() {
+
+        Iterable<Incident> incident = repo.findAll();
+
+        Type listType = new TypeToken<List<IncidentDto>>() {}.getType();
+
+        List<IncidentDto> incidentsDtos = mapper.map(incident, listType);
+
+        return incidentsDtos;
+    }
+
+    public IncidentDto getIncidentById(int id) {
+        Optional<Incident> optionalIncident = repo.findById(id);
+
+        Incident incident = optionalIncident.orElseThrow(RuntimeException::new);
+
+        IncidentDto incidentDto = mapper.map(incident, IncidentDto.class);
+
+        return incidentDto;
+
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 09-Feb-19
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("api/user")
 public class UserApi {
 
     @Autowired

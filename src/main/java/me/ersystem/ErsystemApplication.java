@@ -55,9 +55,10 @@ public class ErsystemApplication {
 			incident.setDate(new Date());
 			incident.setEmployeeId(employee);
 			incident.setUserId(user1);
-			incident.setDescrption("Desc here");
-			incident.setLocation("Egypt");
-
+			incident.setDescrption("بلاغ جديد");
+			incident.setLocation("القاهره");
+			incident.setLat("52.5");
+			incident.setLng("13.4");
 			incidentRepo.save(incident);
 
 		};

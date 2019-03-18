@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: head"></div>
+<body class="background">
+<div class="container-fluid">
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="row">
+        <div class="offset-md-2 col-md-8">
+            <table class="table table-striped" dir="rtl">
+                <tr>
+                    <td>رقم البلاغ</td>
+                    <td th:text="${incident.id}"/>
+                </tr>
+                <tr>
+                    <td>النوع</td>
+                    <td th:text="${incident.type}"/>
+                </tr>
+                <tr>
+                    <td>الموقع</td>
+                    <td th:text="${incident.location}"/>
+                </tr>
+                <tr>
+                    <td>التاريخ</td>
+                    <td th:text="${incident.dateTime}"/>
+                </tr>
+                <tr>
+                    <td>حاله البلاغ</td>
+                    <td th:text="${incident.status}"/>
+                </tr>
+                <tr>
+                    <td>الوصف</td>
+                    <td th:text="${incident.descrption}"/>
+                </tr>
+                <tr>
+                    <td>رقم مقدم البلاغ</td>
+                    <td th:text="${incident.userId}"/>
+                </tr>
+                <tr>
+                    <td>الصوره</td>
+                    <td><img width="100" th:src="${incident.photo}"/></td>
+                </tr>
+                <tr>
+                    <td>الخريطه</td>
+                    <td>
+                        <!--<img th:src="@{https://image.maps.api.here.com/mia/1.6/mapview?z=14&poi={lat}%2C{}&app_id=IbfLW8cZEYcJKMVXtInt&app_code=EyFujOe2PfLj-SBmRHGVGQ" >-->
+                        <img th:src="@{https://image.maps.api.here.com/mia/1.6/mapview(z=14,poi=${incident.lat}+','+${incident.lng},app_id='IbfLW8cZEYcJKMVXtInt',app_code='EyFujOe2PfLj-SBmRHGVGQ')}" >
+                    </td><!--<img width="100" th:src="https://image.maps.api.here.com/mia/1.6/mapview?z=14&poi=52.5%2C13.4&app_id=IbfLW8cZEYcJKMVXtInt&app_code=EyFujOe2PfLj-SBmRHGVGQ"/>-->
+                </tr>
+                <tr>
+                    <td>اداره البلاغ</td>
+                    <td>حذف | قبول</td>
+                </tr>
+            </table>
+
+            <a type="button" class="btn btn-primary" href="/home">رجوع</a>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: script"></div>
+</body>
+</html>
