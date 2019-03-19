@@ -23,7 +23,9 @@ public class IncidentController {
 
     @GetMapping("incident")
     public String viewAllIncident(Model model){
-        List<IncidentDto> allIncident = service.getAllIncident();
+        // TODO: 3/18/2019 make status [manger : open , emp : new]
+        String status = "new";
+        List<IncidentDto> allIncident = service.getAllIncidentByStatus(status);
         model.addAttribute("incidents",allIncident);
         return "incident";
     }

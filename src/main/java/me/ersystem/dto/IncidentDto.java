@@ -15,10 +15,11 @@ public class IncidentDto {
     private String type;
     private String location;
     private String descrption;
+    private String region;
     private Date date;
     private String status;
     private int userId;
-    private String photo;
+    private String image;
     private String lat;
     private String lng;
 }

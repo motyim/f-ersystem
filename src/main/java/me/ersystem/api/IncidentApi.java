@@ -2,6 +2,7 @@ package me.ersystem.api;
 
 import me.ersystem.dto.IncidentDto;
 import me.ersystem.dto.IncidentResponse;
+import me.ersystem.dto.UploadImageDto;
 import me.ersystem.service.IncidentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +23,14 @@ public class IncidentApi {
 
 
     @PostMapping()
-    public ResponseEntity<Integer> addIncident(IncidentDto dto) {
+    public ResponseEntity<Integer> addIncident(@RequestBody IncidentDto dto) {
         Integer integer = service.addIncident(dto);
         return ResponseEntity.ok(integer);
     }
 
     @PostMapping("upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("encodedImage") String encodedImage,@RequestParam int id){
-        service.uploadImage(encodedImage,id);
+    public ResponseEntity<String> uploadImage(@RequestBody UploadImageDto imageDto){
+        service.uploadImage(imageDto);
         return ResponseEntity.ok("Uploaded");
     }
 

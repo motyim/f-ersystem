@@ -157,6 +157,14 @@ public class Incident implements Serializable {
         this.lng = lng;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

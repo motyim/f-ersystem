@@ -15,4 +15,6 @@ import java.util.stream.Stream;
 public interface IncidentRepo extends PagingAndSortingRepository<Incident,Integer> {
 
     Stream<Incident> findAllByUserId(User user);
+
+    Stream<Incident> findAllByStatus(String status);
 }

@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <td>التاريخ</td>
-                    <td th:text="${incident.dateTime}"/>
+                    <td th:text="${incident.date}"/>
                 </tr>
                 <tr>
                     <td>حاله البلاغ</td>
@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td>الصوره</td>
-                    <td><img width="100" th:src="${incident.photo}"/></td>
+                    <td><img th:src="@{'/images/' + ${incident.image}}"/></td>
                 </tr>
                 <tr>
                     <td>الخريطه</td>

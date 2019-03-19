@@ -2,23 +2,25 @@ package me.ersystem.service;
 
 import me.ersystem.dto.IncidentDto;
 import me.ersystem.dto.IncidentResponse;
+import me.ersystem.dto.UploadImageDto;
 import me.ersystem.entity.Incident;
 import me.ersystem.entity.User;
 import me.ersystem.repo.EmployeeRepo;
 import me.ersystem.repo.IncidentRepo;
 import me.ersystem.repo.UserRepo;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.misc.BASE64Decoder;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +46,7 @@ public class IncidentService {
     @Autowired
     EmployeeRepo employeeRepo;
 
-    private static String UPLOADED_FOLDER = "uploads/";
+    private static String UPLOADED_FOLDER = "images/";
 
     public Integer addIncident(IncidentDto dto) {
 
@@ -59,33 +61,41 @@ public class IncidentService {
         incident.setEmployeeId(employeeRepo.findById(1).get());
         incident.setUserId(user.get());
         incident.setDate(new Date());
-        Incident incident1 = repo.save(incident);
-        return incident1.getId();
+        incident.setStatus("new");
+        return repo.save(incident).getId();
+    }
+
+    public void uploadImage(UploadImageDto imageDto) {
+
+        Optional<Incident> incidentOptional = repo.findById(imageDto.getIncidentID());
+        if (!incidentOptional.isPresent())
+            throw new RuntimeException("incident not exsist");
+
+        String fileName = decodeToImage(imageDto.getEncodedImage(), imageDto.getImageType());
+
+        Incident incident = incidentOptional.get();
+        incident.setImage(fileName);
+        repo.save(incident);
 
     }
 
-    public void uploadImage(String encodedImage, int id) {
-
+    private String decodeToImage(String imageString, String imageType) {
+        BufferedImage image = null;
+        byte[] imageByte;
         try {
-            Optional<Incident> incidentOptional = repo.findById(id);
-            if (!incidentOptional.isPresent())
-                throw new RuntimeException("incident not exsist");
-
-
-            byte[] imageByte = Base64.decodeBase64(encodedImage);
-            String fileName = "Image-" + new Date().toString();
-            Path path = Paths.get(UPLOADED_FOLDER + fileName);
-            Files.write(path, imageByte);
-
-            Incident incident = incidentOptional.get();
-            incident.setImage(fileName);
-            repo.save(incident);
-
-            System.out.println("You successfully uploaded '");
-
-        } catch (IOException e) {
-            throw new RuntimeException("image can't uploded");
+            BASE64Decoder decoder = new BASE64Decoder();
+            imageByte = decoder.decodeBuffer(imageString);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            String fileName = "Image_" + new Date().getTime()+"."+imageType;
+            File outputfile = new File(UPLOADED_FOLDER+fileName);
+            ImageIO.write(image, imageType, outputfile);
+            bis.close();
+            return fileName;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return imageString;
     }
 
     @Transactional
@@ -96,15 +106,11 @@ public class IncidentService {
         if (!user.isPresent())
             throw new RuntimeException("user not found");
 
-        Stream<Incident> incident = repo.findAllByUserId(user.get());
-
-        List<Incident> incidents = incident.collect(Collectors.toList());
+        Stream<Incident> incidentStream = repo.findAllByUserId(user.get());
 
         Type listType = new TypeToken<List<IncidentResponse>>() {}.getType();
 
-        List<IncidentResponse> incidentsDtos = mapper.map(incidents, listType);
-
-        return incidentsDtos;
+        return getIncidentResponse(incidentStream,listType);
     }
 
     public List<IncidentDto> getAllIncident() {
@@ -116,6 +122,27 @@ public class IncidentService {
         List<IncidentDto> incidentsDtos = mapper.map(incident, listType);
 
         return incidentsDtos;
+    }
+
+    @Transactional
+    public List<IncidentDto> getAllIncidentByStatus(String status) {
+
+        Stream<Incident> incidentStream = repo.findAllByStatus(status);
+
+        Type listType = new TypeToken<List<IncidentDto>>() {}.getType();
+
+        return getIncidentResponse(incidentStream,listType);
+    }
+
+
+    private <R> List<R> getIncidentResponse(Stream<Incident> incidentStream,Type listType){
+
+
+        List<Incident> incidents = incidentStream.collect(Collectors.toList());
+
+        List<R> list = mapper.map(incidents, listType);
+
+        return list;
     }
 
     public IncidentDto getIncidentById(int id) {
