@@ -39,6 +39,10 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "phoneNumber")
     private String phoneNumber;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "code")
+    private int code;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Incident> incidentCollection;
 
@@ -86,6 +90,22 @@ public class User implements Serializable {
 
     public void setIncidentCollection(Collection<Incident> incidentCollection) {
         this.incidentCollection = incidentCollection;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     @Override

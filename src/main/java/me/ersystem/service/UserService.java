@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * @author MotYim <mohamed.motyim@gmail.com>
@@ -19,6 +20,9 @@ public class UserService {
 
     @Autowired
     UserRepo repo ;
+
+    @Autowired
+    MailService mailService;
 
     @Autowired
     ModelMapper modelMapper ;
@@ -40,7 +44,9 @@ public class UserService {
 
     public UserDto addUser(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
+        user.setCode(new Random().nextInt(999-100) + 100);
         User savedUser = repo.save(user);
+        mailService.sendMail(user.getEmail(),"Activation Code","You Activaiton code is : "+user.getCode());
         return modelMapper.map(savedUser,UserDto.class);
     }
 }

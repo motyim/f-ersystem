@@ -20,5 +20,6 @@ public class UserDto {
     private int id;
     private String username;
     private String phoneNumber;
-//        private Collection<IncidentRepo> incidentCollection;
+    private String email;
+    private int code;
 }

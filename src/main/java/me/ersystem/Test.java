@@ -9,13 +9,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * @author MotYim mohamed.motyim@gmail.com
  * @since 19-Mar-2019
  */
 public class Test {
+
     public static void main(String[] args) {
 
         try {
@@ -28,6 +28,7 @@ public class Test {
             e.printStackTrace();
         }
     }
+
 
     public static String encodeToString(BufferedImage image) {
         String imageString = null;
