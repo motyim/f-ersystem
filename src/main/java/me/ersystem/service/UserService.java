@@ -1,6 +1,5 @@
 package me.ersystem.service;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import me.ersystem.dto.UpdateUserDto;
 import me.ersystem.dto.UserDto;
 import me.ersystem.entity.User;
@@ -48,7 +47,7 @@ public class UserService {
         user.setCode(new Random().nextInt(999-100) + 100);
         User savedUser = repo.save(user);
         // TODO: 3/22/2019 Uncommecnt this one
-//        new Thread(() -> mailService.sendMail(user.getEmail(),"Activation Code","You Activaiton code is : "+user.getCode())).run();
+        new Thread(() -> mailService.sendMail(user.getEmail(),"Activation Code","You Activaiton code is : "+user.getCode())).run();
         return modelMapper.map(savedUser,UserDto.class);
     }
 }

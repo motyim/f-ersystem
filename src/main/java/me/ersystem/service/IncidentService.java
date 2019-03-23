@@ -67,7 +67,8 @@ public class IncidentService {
         if (!incidentOptional.isPresent())
             throw new RuntimeException("incident not exsist");
 
-        String fileName = decodeToImage(imageDto.getEncodedImage(), imageDto.getImageType());
+        String imageType = Optional.of(imageDto.getImageType()).orElse("png");
+        String fileName = decodeToImage(imageDto.getEncodedImage(),imageType);
 
         Incident incident = incidentOptional.get();
         incident.setImage(fileName);
