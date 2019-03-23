@@ -1,10 +1,14 @@
 package me.ersystem.repo;
 
+import me.ersystem.dto.IncidentTypeStatDto;
+import me.ersystem.dto.LocationStatDto;
 import me.ersystem.entity.Incident;
 import me.ersystem.entity.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -17,4 +21,20 @@ public interface IncidentRepo extends PagingAndSortingRepository<Incident,Intege
     Stream<Incident> findAllByUserId(User user);
 
     Stream<Incident> findAllByStatus(String status);
+
+    @Query("SELECT " +
+            "    new me.ersystem.dto.LocationStatDto(I.location, COUNT(I)) " +
+            "FROM " +
+            "    Incident I " +
+            "GROUP BY " +
+            "    I.location")
+    List<LocationStatDto> findLocationCount();
+
+    @Query("SELECT " +
+            "    new me.ersystem.dto.IncidentTypeStatDto(I.type, COUNT(I)) " +
+            "FROM " +
+            "    Incident I " +
+            "GROUP BY " +
+            "    I.type")
+    List<IncidentTypeStatDto> findTypeCount();
 }

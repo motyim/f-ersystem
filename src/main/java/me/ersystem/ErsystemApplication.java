@@ -36,13 +36,13 @@ public class ErsystemApplication {
 			new File("uploads").mkdir();
 			System.out.println("# Data Loaded into DB");
 			User user = new User();
-			user.setUsername("motyim");
-			user.setPhoneNumber("01114786614");
+			user.setUsername("motyimm");
+			user.setPhoneNumber("011147866144");
 			userRepo.save(user);
 
 			User user1= new User();
-			user1.setUsername("sara");
-			user1.setPhoneNumber("01020606067");
+			user1.setUsername("saraa");
+			user1.setPhoneNumber("010206060677");
 			userRepo.save(user1);
 
             Employee employee = new Employee();
@@ -51,6 +51,13 @@ public class ErsystemApplication {
             employee.setPhonenumber("0112455");
             employee.setPassword("123");
             employeeRepo.save(employee);
+
+			Employee employee1 = new Employee();
+			employee1.setName("emp");
+			employee1.setRole("employee");
+			employee1.setPhonenumber("0112455");
+			employee1.setPassword("123");
+			employeeRepo.save(employee1);
 
 
 			Incident incident = new Incident();

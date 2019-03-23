@@ -1,8 +1,6 @@
 package me.ersystem.service;
 
-import me.ersystem.dto.IncidentDto;
-import me.ersystem.dto.IncidentResponse;
-import me.ersystem.dto.UploadImageDto;
+import me.ersystem.dto.*;
 import me.ersystem.entity.Incident;
 import me.ersystem.entity.User;
 import me.ersystem.repo.EmployeeRepo;
@@ -19,7 +17,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
@@ -57,8 +54,7 @@ public class IncidentService {
         if (!user.isPresent())
             throw new RuntimeException("user not found");
 
-        // TODO: 09-Feb-19 make it dynamic
-        incident.setEmployeeId(employeeRepo.findById(1).get());
+//        incident.setEmployeeId(employeeRepo.findById(1).get());
         incident.setUserId(user.get());
         incident.setDate(new Date());
         incident.setStatus("new");
@@ -154,5 +150,13 @@ public class IncidentService {
 
         return incidentDto;
 
+    }
+
+    public List<LocationStatDto> getLocationStatistics() {
+        return repo.findLocationCount();
+    }
+
+    public List<IncidentTypeStatDto> getTypeStatistics() {
+        return repo.findTypeCount();
     }
 }

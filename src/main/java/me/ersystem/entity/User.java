@@ -34,12 +34,12 @@ public class User implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "username")
+    @Column(name = "username" ,unique = true)
     private String username;
     @Basic(optional = false)
-    @Column(name = "phoneNumber")
+    @Column(name = "phoneNumber",unique = true)
     private String phoneNumber;
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
     @Column(name = "code")
     private int code;
@@ -117,7 +117,6 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof User)) {
             return false;
         }

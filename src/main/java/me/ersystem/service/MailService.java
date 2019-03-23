@@ -24,8 +24,6 @@ public class MailService {
     public void sendMail(String mail,String subject,String text){
         HttpResponse<JsonNode> request = null;
         try {
-            System.out.println("-- > " + API_BAES_URL);
-            System.out.println("-- > " + API_KEY);
             request = Unirest.post(API_BAES_URL)
                     .basicAuth("api", API_KEY)
                     .field("from", "Admin <USER@YOURDOMAIN.COM>")

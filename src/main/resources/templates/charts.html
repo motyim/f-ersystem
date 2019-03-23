@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: head"></div>
+<body class="background">
+<div class="container-fluid">
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="row">
+        <span class="offset-md-2 col-md-8">
+
+            <span id="piechart" style="display: inline-block"></span>
+            <span id="piechart2" style="display: inline-block"></span>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+            <script type="text/javascript" th:inline="javascript">
+                // Load google charts
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+
+                    var list = [[${LocStat}]]
+                    var list2 = [[${typeStat}]]
+                    var Tempdata=[];
+                    var Tempdata2=[];
+                    Tempdata.push(['Most City', 'City per Incident']);
+                    Tempdata2.push(['Most Type', 'Type per Incident']);
+                    for (i = 0; i < list.length; i++) {
+                        Tempdata.push([list[i].location, list[i].count]);
+                    }
+
+                    for (i = 0; i < list2.length; i++) {
+                        Tempdata2.push([list2[i].type, list2[i].count]);
+                    }
+
+                    var data = google.visualization.arrayToDataTable(Tempdata);
+                    var data2 = google.visualization.arrayToDataTable(Tempdata2);
+                    // Optional; add a title and set the width and height of the chart
+                    var options = {'title':'اكثر المدن بها بلاغات', 'width':400, 'height':400};
+                    var options2 = {'title':'اكثر انوع البلاغات', 'width':400, 'height':400};
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    chart.draw(data, options);
+                    chart2.draw(data2, options2);
+                }
+            </script>
+            <div><a type="button" class="btn btn-primary" href="/home">رجوع</a></div>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: script"></div>
+</body>
+</html>
