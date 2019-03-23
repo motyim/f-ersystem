@@ -30,9 +30,9 @@ public class IncidentApi {
     }
 
     @PostMapping("upload")
-    public ResponseEntity<HttpStatus> uploadImage(@RequestBody UploadImageDto imageDto){
+    public ResponseEntity<String> uploadImage(@RequestBody UploadImageDto imageDto){
         service.uploadImage(imageDto);
-        return new ResponseEntity( HttpStatus.OK );
+        return ResponseEntity.ok("{}");
     }
 
     @GetMapping

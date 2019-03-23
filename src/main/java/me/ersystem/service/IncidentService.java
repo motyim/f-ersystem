@@ -160,4 +160,10 @@ public class IncidentService {
     public List<IncidentTypeStatDto> getTypeStatistics() {
         return repo.findTypeCount();
     }
+
+    public void changeStatus(int id, String status) {
+        Incident incident = repo.findById(id).orElseThrow(RuntimeException::new);
+        incident.setStatus(status);
+        repo.save(incident);
+    }
 }

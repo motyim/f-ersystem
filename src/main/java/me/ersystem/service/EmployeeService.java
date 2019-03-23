@@ -25,11 +25,11 @@ public class EmployeeService {
     @Autowired
     ModelMapper mapper;
 
-    public boolean login(String id, String password) {
+    public EmployeeDto login(String id, String password) {
         Optional<Employee> emp = repo.findByIdAndPassword(Integer.parseInt(id), password);
         if(!emp.isPresent())
-            return false ;
-        else return true;
+            return null ;
+        return mapper.map(emp.get(), EmployeeDto.class);
     }
 
     public EmployeeDto findAccount(int id) {
