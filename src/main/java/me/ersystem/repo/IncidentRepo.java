@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -20,7 +21,7 @@ public interface IncidentRepo extends PagingAndSortingRepository<Incident,Intege
 
     Stream<Incident> findAllByUserId(User user);
 
-    Stream<Incident> findAllByStatus(String status);
+    Stream<Incident> findAllByStatusIn(Collection<String> status);
 
     @Query("SELECT " +
             "    new me.ersystem.dto.LocationStatDto(I.location, COUNT(I)) " +

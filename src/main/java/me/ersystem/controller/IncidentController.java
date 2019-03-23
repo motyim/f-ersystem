@@ -3,6 +3,7 @@ package me.ersystem.controller;
 import me.ersystem.dto.EmployeeDto;
 import me.ersystem.dto.IncidentDto;
 import me.ersystem.service.IncidentService;
+import me.ersystem.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,11 +25,20 @@ public class IncidentController {
     @Autowired
     IncidentService service;
 
+    @Autowired
+    MailService mailService;
+
     @GetMapping("incident")
     public String viewAllIncident(Model model, HttpSession session){
         EmployeeDto loginUser =(EmployeeDto) session.getAttribute("loginUser");
-        String status = loginUser.getRole().equals("admin")? "open":"new";
-        List<IncidentDto> allIncident = service.getAllIncidentByStatus(status);
+        List<String> list;
+        if(loginUser.getRole().equals("admin")){
+            list = Arrays.asList("open", "rejected");
+        }else{
+            list = Arrays.asList("new", "approved","rejected");
+        }
+
+        List<IncidentDto> allIncident = service.getAllIncidentByStatus(list);
         model.addAttribute("incidents",allIncident);
         return "incident";
     }
@@ -56,4 +67,14 @@ public class IncidentController {
         service.changeStatus(id,"approved");
         return "redirect:/incident";
     }
+
+    @GetMapping("incident/{id}/send")
+    public String sendIncident(@PathVariable("id") int id,@RequestParam String email){
+        IncidentDto incident = service.getIncidentById(id);
+        new Thread(() -> mailService.sendMail(email,"incident detial",incident.toString()))
+                .run();
+        return "redirect:/incident";
+    }
+
+
 }

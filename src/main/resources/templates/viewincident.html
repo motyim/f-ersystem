@@ -51,11 +51,22 @@
                 <tr>
                     <td>اداره البلاغ</td>
                     <td>
-                        <a th:href="@{/incident/{id}/delete(id=${incident.id})}">حذف</a> |
-                        <div th:switch="${session.loginUser.role}">
-                            <a th:case="'employee'" th:href="@{/incident/{id}/open(id=${incident.id})}">فتح</a>
-                            <a th:case="'admin'" th:href="@{/incident/{id}/approve(id=${incident.id})}">قبول</a>
-                        </div>
+
+                        <span th:if="${incident.status != 'rejected' && incident.status != 'approved' }">
+                            <a th:href="@{/incident/{id}/delete(id=${incident.id})}">حذف</a> |
+                            <span th:switch="${session.loginUser.role}">
+                                <a th:case="'employee'" th:href="@{/incident/{id}/open(id=${incident.id})}">فتح</a>
+                                <a th:case="'admin'" th:href="@{/incident/{id}/approve(id=${incident.id})}">قبول</a>
+                            </span>
+                        </span>
+
+                        <span th:if="${incident.status == 'approved' }">
+                            <form th:action="@{/incident/{id}/send(id=${incident.id})}" method="get">
+                                الايميل <input type="email" name="email">
+                                <input type="submit" value="ارسال للجهه">
+                            </form>
+
+                        </span>
                     </td>
                 </tr>
             </table>
