@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 /**
- * @author MotYim mohamed.motyim@gmail.com
+ *
  * @since 22-Mar-2019
  */
 @Controller

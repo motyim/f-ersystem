@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since 16-Feb-19
  */
 @Controller

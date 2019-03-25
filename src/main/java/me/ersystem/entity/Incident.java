@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since Feb 10, 2019 
  */
 @Entity

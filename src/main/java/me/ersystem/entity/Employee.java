@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since Feb 10, 2019 
  */
 @Entity

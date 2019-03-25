@@ -3,7 +3,7 @@ package me.ersystem.dto;
 import lombok.Data;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since 16-Feb-19
  */
 @Data

@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since 09-Feb-19
  */
 @RestController

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since 10-Feb-19
  */
 @Controller

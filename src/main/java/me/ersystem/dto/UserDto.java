@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since 09-Feb-19
  */
 @Data

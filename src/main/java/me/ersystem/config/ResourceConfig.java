@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author MotYim mohamed.motyim@gmail.com
+ *
  * @since 19-Mar-2019
  */
 @Configuration

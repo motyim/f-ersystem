@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since 09-Feb-19
  */
 @RestController

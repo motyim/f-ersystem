@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 /**
- * @author MotYim mohamed.motyim@gmail.com
+ *
  * @since 22-Mar-2019
  */
 @Service

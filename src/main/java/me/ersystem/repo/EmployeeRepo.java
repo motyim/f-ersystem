@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since 09-Feb-19
  */
 @Repository

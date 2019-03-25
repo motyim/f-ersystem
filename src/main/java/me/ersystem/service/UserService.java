@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * @author MotYim <mohamed.motyim@gmail.com>
+ *
  * @since 09-Feb-19
  */
 @Service
@@ -46,8 +46,7 @@ public class UserService {
         User user = modelMapper.map(userDto, User.class);
         user.setCode(new Random().nextInt(999-100) + 100);
         User savedUser = repo.save(user);
-        // TODO: 3/22/2019 Uncommecnt this one
-        new Thread(() -> mailService.sendMail(user.getEmail(),"Activation Code","You Activaiton code is : "+user.getCode())).run();
+        new Thread(() -> mailService.sendMail(user.getEmail(),"Activation Code","You Activaiton code is : "+user.getCode())).start();
         return modelMapper.map(savedUser,UserDto.class);
     }
 }

@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author MotYim mohamed.motyim@gmail.com
+ *
  * @since 19-Mar-2019
  */
 public class Test {
