@@ -10,7 +10,7 @@
         <div class="offset-md-2 col-md-4">
             <a type="button" class="btn btn-primary  btn-lg btn-main" href="/incident"><i class="fab fa-elementor"></i> قائمة البلاغات </a>
         </div>
-        <div class="col-md-4">
+        <div th:if="${session.loginUser.role}=='admin'" class="col-md-4">
             <a type="button" class="btn btn-primary  btn-lg btn-main" href="/employee"><i class="fas fa-users"></i> إدارة الموظفين </a>
         </div>
         <div class="offset-md-2 col-md-4 ">
