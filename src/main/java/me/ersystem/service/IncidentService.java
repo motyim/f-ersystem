@@ -18,7 +18,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -125,7 +124,7 @@ public class IncidentService {
     @Transactional
     public List<IncidentDto> getAllIncidentByStatus(List status) {
 
-        Stream<Incident> incidentStream = repo.findAllByStatusIn(status);
+        Stream<Incident> incidentStream = repo.findAllByStatusInOrderByStatus(status);
 
         Type listType = new TypeToken<List<IncidentDto>>() {}.getType();
 

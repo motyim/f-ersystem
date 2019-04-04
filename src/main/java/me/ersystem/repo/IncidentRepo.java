@@ -21,7 +21,7 @@ public interface IncidentRepo extends PagingAndSortingRepository<Incident,Intege
 
     Stream<Incident> findAllByUserId(User user);
 
-    Stream<Incident> findAllByStatusIn(Collection<String> status);
+    Stream<Incident> findAllByStatusInOrderByStatus(Collection<String> status);
 
     @Query("SELECT " +
             "    new me.ersystem.dto.LocationStatDto(I.location, COUNT(I)) " +
