@@ -24,11 +24,11 @@ public interface IncidentRepo extends PagingAndSortingRepository<Incident,Intege
     Stream<Incident> findAllByStatusInOrderByStatus(Collection<String> status);
 
     @Query("SELECT " +
-            "    new me.ersystem.dto.LocationStatDto(I.location, COUNT(I)) " +
+            "    new me.ersystem.dto.LocationStatDto(I.region, COUNT(I)) " +
             "FROM " +
             "    Incident I " +
             "GROUP BY " +
-            "    I.location")
+            "    I.region")
     List<LocationStatDto> findLocationCount();
 
     @Query("SELECT " +
