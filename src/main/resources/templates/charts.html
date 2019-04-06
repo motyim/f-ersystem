@@ -6,12 +6,18 @@
 
     <div th:replace="fragments/header :: header"></div>
 
+    <div class="row" style="margin: 10px 0px">
+         <span class="offset-md-4 col-md-4">
+            <button class="btn btn-light">شهري</button>
+            <button class="btn btn-primary">ربع سنوي</button>
+            <button class="btn btn-primary">نصف سنوي</button>
+            <button class="btn btn-primary">سنوي</button>
+         </span>
+    </div>
+
     <div class="row">
+
         <span class="offset-md-2 col-md-8">
-            <button class="btn btn-main">شهري</button>
-            <button class="btn btn-main">ربع سنوي</button>
-            <button class="btn btn-main">نصف سنوي</button>
-            <button class="btn btn-main">سنوي</button>
             <span id="piechart" style="display: inline-block"></span>
             <span id="piechart2" style="display: inline-block"></span>
 
