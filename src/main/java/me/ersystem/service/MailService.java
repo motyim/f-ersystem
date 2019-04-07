@@ -38,7 +38,7 @@ public class MailService {
             mailServerProperties.put("mail.smtp.port", "587");
             mailServerProperties.put("mail.smtp.auth", "true");
             mailServerProperties.put("mail.smtp.starttls.enable", "true");
-            mailServerProperties.put("charset","utf-8");
+            mailServerProperties.put("mail.mime.charset","utf-8");
 
             //-------------- get Mail Session ------------------
 
@@ -46,7 +46,7 @@ public class MailService {
             generateMailMessage = new MimeMessage(getMailSession);
             generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             generateMailMessage.setSubject("ER System | " + subject);
-            generateMailMessage.setContent(emailBody, "text/html");
+            generateMailMessage.setContent(emailBody, "text/plain; charset=UTF-8");
 
 
             //-------------- Get Session and Send mail ------------------
