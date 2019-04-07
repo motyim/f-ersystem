@@ -38,7 +38,7 @@ public class MailService {
             mailServerProperties.put("mail.smtp.port", "587");
             mailServerProperties.put("mail.smtp.auth", "true");
             mailServerProperties.put("mail.smtp.starttls.enable", "true");
-
+            mailServerProperties.put("charset","utf-8");
 
             //-------------- get Mail Session ------------------
 
