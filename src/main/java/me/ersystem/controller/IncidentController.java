@@ -4,6 +4,7 @@ import me.ersystem.dto.EmployeeDto;
 import me.ersystem.dto.IncidentDto;
 import me.ersystem.service.IncidentService;
 import me.ersystem.service.MailService;
+import me.ersystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class IncidentController {
     IncidentService service;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     MailService mailService;
 
     @GetMapping("incident")
@@ -46,7 +50,9 @@ public class IncidentController {
     @GetMapping("incident/{id}")
     public String viewIncident(@PathVariable("id") int id, Model model){
         IncidentDto incidentDto = service.getIncidentById(id);
+        String userPhone = userService.getUserPhoneByUserId(incidentDto.getUserId());
         model.addAttribute("incident",incidentDto);
+        model.addAttribute("userphone",userPhone);
         return "viewincident";
     }
 

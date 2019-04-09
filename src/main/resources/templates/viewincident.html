@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td>رقم مقدم البلاغ</td>
-                    <td th:text="${incident.userId}"/>
+                    <td th:text="${userphone}"/>
                 </tr>
                 <tr>
                     <td>الصوره</td>
@@ -45,7 +45,7 @@
                     <td>الخريطه</td>
                     <td>
                         <!--<img th:src="@{https://image.maps.api.here.com/mia/1.6/mapview?z=14&poi={lat}%2C{}&app_id=IbfLW8cZEYcJKMVXtInt&app_code=EyFujOe2PfLj-SBmRHGVGQ" >-->
-                        <img th:src="@{https://image.maps.api.here.com/mia/1.6/mapview(z=17,poi=${incident.lat}+','+${incident.lng},app_id='IbfLW8cZEYcJKMVXtInt',app_code='EyFujOe2PfLj-SBmRHGVGQ')}" >
+                        <img th:src="@{https://image.maps.api.here.com/mia/1.6/mapview(z=15,poi=${incident.lat}+','+${incident.lng},app_id='IbfLW8cZEYcJKMVXtInt',app_code='EyFujOe2PfLj-SBmRHGVGQ')}" >
                     </td><!--<img width="100" th:src="https://image.maps.api.here.com/mia/1.6/mapview?z=14&poi=52.5%2C13.4&app_id=IbfLW8cZEYcJKMVXtInt&app_code=EyFujOe2PfLj-SBmRHGVGQ"/>-->
                 </tr>
                 <tr>

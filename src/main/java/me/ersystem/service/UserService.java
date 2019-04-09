@@ -49,4 +49,11 @@ public class UserService {
         new Thread(() -> mailService.sendMail(user.getEmail(),"Activation Code","You Activaiton code is : "+user.getCode())).start();
         return modelMapper.map(savedUser,UserDto.class);
     }
+
+    public String getUserPhoneByUserId(int userId) {
+        Optional<User> userOptional = repo.findById(userId);
+        if(userOptional.isPresent())
+            return userOptional.get().getPhoneNumber();
+        else return "no phone";
+    }
 }
